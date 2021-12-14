@@ -2,10 +2,13 @@
 
 Vagrant.configure("2") do |config|
   (1..4).each do |i|
-      config.vm.define :"nginx-#{i}" do |nginx|
+      config.vm.define :"srv-nginx-#{i}" do |nginx|
           nginx.vm.box = "centos/7"
           nginx.vm.network "private_network", name: "vboxnet0", ip: "192.168.56.2#{i}"
           nginx.vm.hostname = "srv-nginx-#{i}"
+          nginx.vm.provider :virtualbox do |cfg|
+            cfg.name = "srv-nginx-#{i}"
+      end
     end
   end
 end
